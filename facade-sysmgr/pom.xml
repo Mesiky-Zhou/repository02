@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 子工程引用父工程 -->
+  	<parent>
+  		<groupId>cmc.bomc</groupId>
+		<artifactId>common-parent</artifactId>
+		<version>1.0.Release</version>
+		<!-- 建议最好配置设置，已当前POM文件为基准父工程POM的相对路径 -->
+		<relativePath>../common-parent</relativePath>
+  	</parent>
+	
+	
+	<artifactId>facade-sysmgr</artifactId>
+	<version>${facade-sysmgr.version}</version>
+  
+
+  
+ 	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>cmc.bomc</groupId>
+			<artifactId>common-core</artifactId>
+			<version>${common-core.version}</version>
+		</dependency>
+		
+	</dependencies>
+</project>
