@@ -1,0 +1,16 @@
+.input-group{
+margin:10px 0px;//输入框上下外边距为10px,左右为0px
+}
+h3{
+padding:5px;
+border-bottom:1px solid #ddd;//h3字体下边框
+}
+li{
+list-style-type:square;//列表项图标为小正方形
+margin:10px 0;//上下外边距是10px
+}
+em{//强调的样式
+color:#c7254e;
+font-style: inherit;
+background-color: #f9f2f4;
+}
