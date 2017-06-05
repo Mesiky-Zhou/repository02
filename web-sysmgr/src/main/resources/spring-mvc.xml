@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<!--  
+		需要进行 Spring 整合 SpringMVC 吗 ?
+		还是否需要再加入 Spring 的 IOC 容器 ?
+		是否需要再 web.xml 文件中配置启动 Spring IOC 容器的 ContextLoaderListener ?
+		
+		1. 需要: 通常情况下, 类似于数据源, 事务, 整合其他框架都是放在 Spring 的配置文件中(而不是放在 SpringMVC 的配置文件中).
+		实际上放入 Spring 配置文件对应的 IOC 容器中的还有 Service 和 Dao. 
+		2. 不需要: 都放在 SpringMVC 的配置文件中. 也可以分多个 Spring 的配置文件, 然后使用 import 节点导入其他的配置文件
+	-->
+	
+	<!--  
+		问题: 若 Spring 的 IOC 容器和 SpringMVC 的 IOC 容器扫描的包有重合的部分, 就会导致有的 bean 会被创建 2 次.
+		解决:
+		1. 使 Spring 的 IOC 容器扫描的包和 SpringMVC 的 IOC 容器扫描的包没有重合的部分. 
+		2. 使用 exclude-filter 和 include-filter 子节点来规定只能扫描的注解
+	-->
+	
+	<!--  
+		SpringMVC 的 IOC 容器中的 bean 可以来引用 Spring IOC 容器中的 bean. 
+		返回来呢 ? 反之则不行. Spring IOC 容器中的 bean 却不能来引用 SpringMVC IOC 容器中的 bean!
+	-->
+	
+	<context:component-scan base-package="sysmgr" use-default-filters="false">
+		<context:include-filter type="annotation" 
+			expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" 
+			expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	<!--  
+	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"  p:prefix="/WEB-INF/ftl/" p:suffix=".ftl">
+        <property name="cache" value="false" /> 
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" /> 
+        <property name="contentType" value="text/html;charset=UTF-8"></property> 
+        <property name="exposeRequestAttributes" value="true" /> 
+        <property name="exposeSessionAttributes" value="true" /> 
+        <property name="exposeSpringMacroHelpers" value="true" /> 
+        <property name="requestContextAttribute" value="base"></property> 
+        <property name="order" value="0"></property> 
+	</bean>
+	-->
+	 <!--视图解释器 -->
+	 <!--  
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+         <property name="order" value="0"></property>
+        <property name="suffix"><value>.ftl</value></property>
+        <property name="contentType" value="text/html;charset=UTF-8"></property>
+    </bean>
+	<bean id="freemarkerConfig"  class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"> 
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/" /> 
+        <property name="freemarkerSettings"> 
+            <props> 
+                <prop key="tag_syntax">auto_detect</prop> 
+                <prop key="template_update_delay">5</prop> 
+                <prop key="defaultEncoding">UTF-8</prop> 
+                <prop key="url_escaping_charset">UTF-8</prop> 
+                <prop key="locale">zh_CN</prop> 
+                <prop key="boolean_format">true,false</prop> 
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop> 
+                <prop key="date_format">yyyy-MM-dd</prop> 
+                <prop key="time_format">HH:mm:ss</prop> 
+                <prop key="number_format">0.######</prop> 
+                <prop key="whitespace_stripping">true</prop> 
+            </props>
+        </property> 
+	</bean> 
+	-->
+	
+	<bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1"></property> 
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- 配置视图  BeanNameViewResolver 解析器: 使用视图的名字来解析视图 -->
+	<!-- 通过 order 属性来定义视图解析器的优先级, order 值越小优先级越高 
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="100"></property>
+	</bean>
+	-->
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="defaultEncoding" value="utf-8"></property>   
+        <property name="maxUploadSize" value="10485760000"></property>  
+        <property name="maxInMemorySize" value="40960"></property>  
+	</bean> 
+	
+	<!-- 配置国际化资源文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="i18n"></property>	
+	</bean>
+	
+	<bean
+	class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	<property name="messageConverters">
+		<list>
+			<ref bean="mappingJacksonHttpMessageConverter" />
+		</list>
+	</property>
+	</bean>
+		<bean id="mappingJacksonHttpMessageConverter"
+			class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			<property name="supportedMediaTypes">
+				<list>
+					<value>text/html;charset=UTF-8</value>
+				</list>
+			</property>
+	</bean> 
+
+	
+	<!--  
+	<mvc:interceptors>
+		<mvc:interceptor>
+            <mvc:mapping path="/**"/> 
+            <bean id="loginInterceptor" class="com.ai.sssp.interceptors.LoginInterceptor"/> 
+		</mvc:interceptor>
+	</mvc:interceptors>
+	-->
+	
+	
+	<!-- 配置直接转发的页面 -->
+	<!-- 可以直接相应转发的页面, 而无需再经过 Handler 的方法.  
+	<mvc:view-controller path="/success" view-name="success"/>
+	-->
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	
+</beans>
