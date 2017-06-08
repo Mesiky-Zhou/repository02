@@ -6,8 +6,8 @@ import java.util.Date;
 public class DateService {
 	
 	public static String mins[];
-	public static SimpleDateFormat format = new SimpleDateFormat("yyyMMddHH");
-	public static SimpleDateFormat format2 = new SimpleDateFormat("yyyMMddHHmmss");
+	public static SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHH");
+	public static SimpleDateFormat format2 = new SimpleDateFormat("yyyyMMddHHmmss");
 	static{
 		initMins();
 	}
