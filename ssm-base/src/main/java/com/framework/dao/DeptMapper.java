@@ -1,14 +1,14 @@
 package com.framework.dao;
 
 import com.framework.bean.Dept;
-import com.framework.bean.DeptCondition;
+import com.framework.bean.DeptWhere;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DeptMapper {
-    long countByExample(DeptCondition example);
+    long countByExample(DeptWhere example);
 
-    int deleteByExample(DeptCondition example);
+    int deleteByExample(DeptWhere example);
 
     int deleteByPrimaryKey(Integer id);
 
@@ -16,13 +16,13 @@ public interface DeptMapper {
 
     int insertSelective(Dept record);
 
-    List<Dept> selectByExample(DeptCondition example);
+    List<Dept> selectByExample(DeptWhere example);
 
     Dept selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") Dept record, @Param("example") DeptCondition example);
+    int updateByExampleSelective(@Param("record") Dept record, @Param("example") DeptWhere example);
 
-    int updateByExample(@Param("record") Dept record, @Param("example") DeptCondition example);
+    int updateByExample(@Param("record") Dept record, @Param("example") DeptWhere example);
 
     int updateByPrimaryKeySelective(Dept record);
 

@@ -77,7 +77,7 @@
     id, code, index_title, page_size, rest_url, grid_config, add_config, update_config, 
     view_config, create_time, update_time, status
   </sql>
-  <select id="selectByExample" parameterType="com.framework.bean.IndexConfigCondition" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.framework.bean.IndexConfigWhere" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -101,7 +101,7 @@
     delete from cf_index_config
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.framework.bean.IndexConfigCondition">
+  <delete id="deleteByExample" parameterType="com.framework.bean.IndexConfigWhere">
     delete from cf_index_config
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -198,7 +198,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.framework.bean.IndexConfigCondition" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.framework.bean.IndexConfigWhere" resultType="java.lang.Long">
     select count(*) from cf_index_config
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

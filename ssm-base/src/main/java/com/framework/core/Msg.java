@@ -45,11 +45,19 @@ public class Msg {
 	}
 
 	public static Msg success(){
-		return new Msg(1,"处理成功");
+		return success("处理成功");
+	}
+	
+	public static Msg success(String msg){
+		return new Msg(1,msg);
 	}
 	
 	public static Msg fail(){
-		return new Msg(1,"处理失败");
+		return fail("处理失败");
+	}
+	
+	public static Msg fail(String msg){
+		return new Msg(2,msg);
 	}
 	
 	public Msg add(String key , Object value){

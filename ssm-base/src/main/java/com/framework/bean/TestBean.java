@@ -2,17 +2,17 @@ package com.framework.bean;
 
 import java.util.Date;
 
-public class Dept {
+public class TestBean {
     private Integer id;
 
     private String name;
 
-    private Date createTime;
+    private Date createDate;
 
     public Integer getId() {
         return id;
     }
- 
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -25,11 +25,11 @@ public class Dept {
         this.name = name == null ? null : name.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }

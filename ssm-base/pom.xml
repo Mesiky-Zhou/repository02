@@ -54,6 +54,13 @@
 		    <artifactId>mybatis-generator-core</artifactId>
 		    <version>1.3.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.abel533/entitymapper -->
+		<dependency>
+		    <groupId>com.github.abel533</groupId>
+		    <artifactId>entitymapper</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+		
 		
 		<!-- JSR303校验 -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->

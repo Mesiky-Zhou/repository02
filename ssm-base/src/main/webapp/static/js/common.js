@@ -32,6 +32,11 @@ function getRequest(urlStr,reqData,successFun,errorFun){
 	request('GET', urlStr,reqData,isAsync,successFun,errorFun);
 }
 
+function getRequestSync(urlStr,reqData,successFun,errorFun){
+	var isAsync = false;
+	request('GET', urlStr,reqData,isAsync,successFun,errorFun);
+}
+
 function postRequest(urlStr,reqData,successFun,errorFun){
 	request('POST', urlStr,reqData,true,successFun,errorFun);
 }

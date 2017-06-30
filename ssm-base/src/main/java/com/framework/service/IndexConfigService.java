@@ -6,47 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.framework.bean.IndexConfig;
-import com.framework.bean.IndexConfigCondition;
+import com.framework.bean.IndexConfigWhere;
 import com.framework.dao.IndexConfigMapper;
 
 @Service
-public class IndexConfigService {
+public class IndexConfigService extends BaseService<IndexConfig, IndexConfigWhere>{
 
 	@Autowired
 	IndexConfigMapper indexConfigMapper;
 	
+	@Override
+	public Object getMapper() {
+		return indexConfigMapper;
+	}
+	
 	public List<IndexConfig> getAll(){
-		IndexConfigCondition condition = new IndexConfigCondition();
-		condition.createCriteria().andStatusEqualTo(0);
-		return indexConfigMapper.selectByExample(condition);
+		IndexConfigWhere where = new IndexConfigWhere();
+		where.createCriteria().andStatusEqualTo(0);
+		return this.queryForList(where);
 	}
-	
-	public IndexConfig getByPrimaryKey(Integer id){
-		return indexConfigMapper.selectByPrimaryKey(id);
-	}
-	
-	public void updateByPrimaryKey(IndexConfig bean){
-		indexConfigMapper.updateByPrimaryKeySelective(bean);
-	}
-	
-	public void save(IndexConfig bean){
-		indexConfigMapper.insertSelective(bean);
-	}
-	
-	public void deleteByPrimaryKey(Integer id){
-		indexConfigMapper.deleteByPrimaryKey(id);
-	}
-	
-	public void deleteByBatch(List<Integer> ids){
-		IndexConfigCondition condition = new IndexConfigCondition();
-		condition.createCriteria().andIdIn(ids);
-		indexConfigMapper.deleteByExample(condition);
-	}
-	
 	
 	public IndexConfig getByCode(String code){
-		IndexConfigCondition condition = new IndexConfigCondition();
-		condition.createCriteria().andStatusEqualTo(0).andCodeEqualTo(code);
-		return indexConfigMapper.selectByExample(condition).get(0);
+		IndexConfigWhere where = new IndexConfigWhere();
+		where.createCriteria().andStatusEqualTo(0).andCodeEqualTo(code);
+		return this.queryForList(where).get(0);
 	}
 }

@@ -11,7 +11,7 @@
   
   	<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
 	     <property name="searchString" value="Example$" />  
-	     <property name="replaceString" value="Condition" />  
+	     <property name="replaceString" value="Where" />  
 	</plugin> 
 	
   	<commentGenerator>
@@ -51,11 +51,13 @@
       <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
     </table>
     -->
-    <!--  
+    <!--  -->
     <table tableName="cf_user" domainObjectName="User" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
     <table tableName="cf_dept" domainObjectName="Dept"></table>
-    -->
     <table tableName="cf_index_config" domainObjectName="IndexConfig"></table>
+    
+    <table tableName="cf_testbean" domainObjectName="TestBean"></table>
+    
 
 
 	

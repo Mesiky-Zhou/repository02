@@ -5,14 +5,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class IndexConfigCondition {
+public class IndexConfigWhere {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public IndexConfigCondition() {
+    public IndexConfigWhere() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

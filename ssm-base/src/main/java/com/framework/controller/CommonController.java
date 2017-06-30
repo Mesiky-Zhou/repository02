@@ -14,14 +14,14 @@ import com.framework.core.Msg;
 import com.framework.core.PageConfig;
 
 @Controller
-@RequestMapping("/sysmgr/common")
+@RequestMapping("/common")
 public class CommonController {
 	@Autowired
 	CacheData cacheData;
 
 	@RequestMapping("/getPageConfig/{code}")
 	@ResponseBody
-	public Msg getListConfig(@PathVariable("code") String code){
+	public Msg getPageConfig(@PathVariable("code") String code){
 		return  Msg.success().add("pageConfig", cacheData.getPageConfig(code));
 	}
 	
@@ -31,6 +31,8 @@ public class CommonController {
 		PageConfig pageConfig = cacheData.getPageConfig(code);
 		
 		map.put("pageConfig", pageConfig);
+		map.put("code", code);
+		
 		return  "/common/indexPageTemplate";
 	}
 	

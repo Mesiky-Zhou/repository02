@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.framework.bean.Dept;
+import com.framework.bean.DeptWhere;
 import com.framework.core.Msg;
 import com.framework.service.DeptService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -28,7 +28,7 @@ public class DeptController {
 	@ResponseBody
 	public Msg listWithNoPage(
 			Map<String,Object> map){
-		List<Dept> list = this.deptService.getAll();
+		List<Dept> list = this.deptService.queryForList(new DeptWhere());
 		
 		return  Msg.success().add("list", list);
 	}
@@ -37,9 +37,8 @@ public class DeptController {
 	@ResponseBody
 	public Msg list(@RequestParam(value="pageNo",defaultValue="1") int pageNo,
 			Map<String,Object> map){
-		PageHelper.startPage(pageNo, 6);
-		List<Dept> list = this.deptService.getAll();
-		PageInfo<Dept> pageInfo = new PageInfo<Dept>(list,5);
+		
+		PageInfo<Dept> pageInfo = this.deptService.queryForPage(new DeptWhere(), pageNo,6);
 		
 		return  Msg.success().add("pageInfo", pageInfo);
 	}

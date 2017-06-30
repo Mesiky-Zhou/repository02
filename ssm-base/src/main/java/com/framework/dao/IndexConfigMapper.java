@@ -1,14 +1,14 @@
 package com.framework.dao;
 
 import com.framework.bean.IndexConfig;
-import com.framework.bean.IndexConfigCondition;
+import com.framework.bean.IndexConfigWhere;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface IndexConfigMapper {
-    long countByExample(IndexConfigCondition example);
+    long countByExample(IndexConfigWhere example);
 
-    int deleteByExample(IndexConfigCondition example);
+    int deleteByExample(IndexConfigWhere example);
 
     int deleteByPrimaryKey(Integer id);
 
@@ -16,13 +16,13 @@ public interface IndexConfigMapper {
 
     int insertSelective(IndexConfig record);
 
-    List<IndexConfig> selectByExample(IndexConfigCondition example);
+    List<IndexConfig> selectByExample(IndexConfigWhere example);
 
     IndexConfig selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") IndexConfig record, @Param("example") IndexConfigCondition example);
+    int updateByExampleSelective(@Param("record") IndexConfig record, @Param("example") IndexConfigWhere example);
 
-    int updateByExample(@Param("record") IndexConfig record, @Param("example") IndexConfigCondition example);
+    int updateByExample(@Param("record") IndexConfig record, @Param("example") IndexConfigWhere example);
 
     int updateByPrimaryKeySelective(IndexConfig record);
 

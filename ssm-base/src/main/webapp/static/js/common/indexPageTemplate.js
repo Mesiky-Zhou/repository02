@@ -3,6 +3,7 @@
  */
 
 //定义页面全局变量
+var pageConfig;
 var totalRecord;//总记录数
 var currentPage;//当前页面
 var selectRowId;//当前选择行的ID
@@ -27,9 +28,18 @@ function bindEvent(){
 }
 
 function initPage(pageNo){
+	initPageConfig();
+	
 	getRequest(PAGE_PROC_URL,{'pageNo':pageNo},buildPage);
 	currentPage = pageNo;
 }
+
+function initPageConfig(){
+	getRequestSync(GLOBAL_APP_PATH+'/common/getPageConfig/'+PAGE_CODE,{},function(result){
+		pageConfig = result.dataMap.pageConfig;
+	});
+}
+
 function buildPage(result){
 	buildPageListHeader(result);
 	buildPageList(result);
@@ -37,7 +47,7 @@ function buildPage(result){
 }
 function buildPageListHeader(result){
 	
-	var gridConfig = result.dataMap.pageConfig.gridConfig;
+	var gridConfig = pageConfig.gridConfig;
 	
 	var header = $("#grid-header");
 	header.empty();
@@ -54,7 +64,7 @@ function buildPageListHeader(result){
 }
 function buildPageList(result){
 	var users = result.dataMap.pageInfo.list;
-	var gridConfig = result.dataMap.pageConfig.gridConfig;
+	var gridConfig = pageConfig.gridConfig;
 	var gridConfig_colProcFuns = gridConfig.colProcFuns;
 	//先清空数据
 	$("#table_list tbody").empty();
@@ -304,10 +314,12 @@ function open_ui_add(){
 	$("#ui_add").modal({backdrop:'static'});
 }
 function init_ui_add(){
-	getRequest(GLOBAL_APP_PATH+'/sysmgr/common/getPageConfig/userIndex',{},function(result){
+	/*getRequest(GLOBAL_APP_PATH+'/common/getPageConfig/'+PAGE_CODE,{},function(result){
 		var addConfig = result.dataMap.pageConfig.addConfig;
 		build_ui_add(null,addConfig);
-	});
+	});*/
+	var addConfig = pageConfig.addConfig;
+	build_ui_add(null,addConfig);
 }
 function build_ui_add(bean, addConfig){
 	$("#ui_add form").empty();
@@ -333,7 +345,7 @@ function open_ui_update(){
 function init_ui_update(){
 	getRequest(PAGE_PROC_URL+'/' + selectRowId,{},function(result){
 		var bean = result.dataMap.bean;
-		var updateConfig = result.dataMap.pageConfig.updateConfig;
+		var updateConfig = pageConfig.updateConfig;
 		
 		build_ui_update(bean,updateConfig);
 	});

@@ -71,7 +71,7 @@
   <sql id="Base_Column_List">
     id, user_name, password, gendar, email, dept_id, create_time
   </sql>
-  <select id="selectByExample" parameterType="com.framework.bean.UserCondition" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.framework.bean.UserWhere" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
     delete from cf_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.framework.bean.UserCondition">
+  <delete id="deleteByExample" parameterType="com.framework.bean.UserWhere">
     delete from cf_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -159,7 +159,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.framework.bean.UserCondition" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.framework.bean.UserWhere" resultType="java.lang.Long">
     select count(*) from cf_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

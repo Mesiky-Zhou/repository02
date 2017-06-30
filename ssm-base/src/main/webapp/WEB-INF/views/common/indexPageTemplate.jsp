@@ -8,9 +8,11 @@
 <script type="text/javascript">
 	var PAGE_REST_URL = '${pageConfig.restUrl}' ;//页面全局变量，传递给后面的js使用
 	var PAGE_PROC_URL = GLOBAL_APP_PATH + PAGE_REST_URL;
+	var PAGE_CODE = '${code}';
+	
 </script>
 
-<script type="text/javascript" src="${APP_PATH}/static/js/common/indexPageTemplate.js"></script>
+<script type="text/javascript" src="${APP_PATH}/static/js/common/indexPageTemplate.js?version=<%=Math.random()%>"></script>
 <title>${pageConfig.indexTitle }</title>
 </head>
 <body>
@@ -109,7 +111,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12"><h1>${pageConfig.indexTitle }</h1></div>
+			<div class="col-md-12"><h1><a href="${pageContext.request.contextPath}/sysmgr/main">首页</a> ${pageConfig.indexTitle }</h1></div>
 		</div>
 		
 		<div class="row">
